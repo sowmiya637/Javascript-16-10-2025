@@ -95,5 +95,3 @@ navigator.mediaDevices.getUserMedia({ video: true })
 ---
 
 
-This is ready to save directly as `README.md` in your project folder.
-```
