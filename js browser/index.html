@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Browser JS Example</title>
+</head>
+<body>
+  <h1 id="title">Welcome!</h1>
+  <button id="changeBtn">Change Title</button>
+  <button id="saveBtn">Save Name</button>
+  <input id="nameInput" placeholder="Enter name" />
+  <div id="camera"></div>
+
+  <script>
+    // DOM + Event
+    const title = document.getElementById("title");
+    const btn = document.getElementById("changeBtn");
+    btn.addEventListener("click", () => {
+      title.textContent = "Title Changed!";
+    });
+
+    // Storage
+    const saveBtn = document.getElementById("saveBtn");
+    const nameInput = document.getElementById("nameInput");
+    saveBtn.addEventListener("click", () => {
+      localStorage.setItem("username", nameInput.value);
+      alert("Saved: " + nameInput.value);
+    });
+
+    // History API
+    history.pushState({ page: 2 }, "Page 2", "?page=2");
+
+    // Media API
+    navigator.mediaDevices.getUserMedia({ video: true })//to send req to browser for access the camera(vidoe)
+      .then(stream => { //live video stream
+        const video = document.createElement("video");
+        video.srcObject = stream;
+        video.autoplay = true;
+        video.width = 320;
+        document.getElementById("camera").appendChild(video);
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>
