@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WebSocket Chat</title>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h1>Realtime Chat</h1>
+  <form id="chatForm">
+    <input id="msgInput" autocomplete="off" placeholder="Type message..." />
+    <button>Send</button>
+  </form>
+  <ul id="messages"></ul>
+
+  <script>
+    const socket = io();
+
+    const form = document.getElementById("chatForm");
+    const input = document.getElementById("msgInput");
+    const messages = document.getElementById("messages");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit("chat message", input.value);
+        input.value = "";
+      }
+    });
+
+    // Listen for messages from server
+    socket.on("chat message", (msg) => {
+      const li = document.createElement("li");
+      li.textContent = msg;
+      messages.appendChild(li);
+    });
+  </script>
+</body>
+</html>
